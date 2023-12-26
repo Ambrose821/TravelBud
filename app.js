@@ -10,10 +10,6 @@ const dotenv = require('dotenv')
 //Load config
 dotenv.config({path: './config/config.env'})
 
-const openai = require('openai');
-const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
-
-const openaiClient = new openai(OPENAI_API_KEY);
 // Use openaiClient for your API calls
 
 
@@ -25,6 +21,8 @@ const MongoStore = require('connect-mongo')
 //routes
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var aiRouter = require('./routes/ai')
+
 
 var app = express();
 
@@ -56,6 +54,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/ai',aiRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

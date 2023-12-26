@@ -1,0 +1,26 @@
+
+
+
+<div class="row">
+    <div class="col s12 m7">
+      <div class="card">
+        <div class="card-image">
+          <img src="images/TravelBudLogo.png">
+          <span class="card-title"><%=title%></span>
+        </div>
+        <div class="card-content">
+          <p><%= shortDescription%></p>
+          <p>
+            <%= keyFeatures%>
+            </p>
+        </div>
+        <div class="card-action">
+          <a href="<%=webLink %>"><%=webLink %></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p>Need something different? Be as specific as you need! We can find it</p>
+
+<%- include('partials/search') %>
