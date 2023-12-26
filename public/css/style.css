@@ -1,0 +1,25 @@
+
+p{
+   
+  margin: 10px 0 !important;
+}
+
+.btn-float{
+  float:left !important; 
+  margin-right:10px !important;
+}
+
+.fa-small{
+  font-size: 16px !important;
+
+}
+.logo-image {
+  max-height: 70px; /* Adjust this value as per your navbar's height */
+  width: auto; /* This ensures the width adjusts proportionally */
+  vertical-align: middle;
+}
+@media screen and (max-width: 600px) {
+  .logo-image {
+      max-height: 30px; /* Smaller size for mobile devices */
+  }
+}
