@@ -2,18 +2,59 @@ var express = require('express');
 var router = express.Router();
 const openaiClient = require('../openAiClient/openAi')
 
+const axios = require('axios')
+const cheerio = require('cheerio')
+
+async function getImageUrl(url){
+    try{
+        const imgResponse = await axios.get(url)
+        const html = imgResponse.data;
+        const $ = cheerio.load(html)
+        const images = $('img')
+
+        if (images.length > 0){
+            var imageUrl = $(images[0]).attr('src')
+            imageUrl = await getFullUrl(url,imageUrl)
+            console.log(url)
+            console.log(imageUrl)
+            console.log("-----------URL FOUND : ------->"+imageUrl)
+            
+            return imageUrl;
+        }
+        else { console.log("No Image"); 
+        return null};
+    }catch(err){
+        console.log("Error Returning Image Url: " +err )
+        return null;
+    }
+}
+async function getFullUrl(baseLink, imageUrl){
+    if(baseLink.includes('http')){
+        return imageUrl
+    }
+    else{
+        if(baseLink.endsWith('/') && imageUrl.Url.startsWith('/')){
+            imgaeUrl = imageUrl.substring(1);
+        }
+        else if(!baseLink.endwith('/') && !imgaeUrl.startsWith('/')){
+            imgaeUrl = '/'  + imageUrl;
+        }
+        return baseLink + imageUrl
+    }
+
+}
 
 /* GET home page. */
 router.post('/destinations',async (req, res)=> {
     try{
-        const preprompt ='Find an Ideal travel destination based on the following criteria. Provide the response in a consistent format with each section immediately following its number and colon, without any line breaks Format the response as: "1: WebLink - [web link here]", "2: Title - [title here]", "3: KeyFeatures - [key features here]", "4: Short description - [short description here]". Here is the prompt: ';
+        const preprompt ='Find an Ideal travel destination based on the following criteria. Provide the response in a consistent format with each section seperated by a + with no spaces in the following order without any line breaks: WebLink,Title,KeyFeatures,Short description.For Key Feateurs, seperate by a period. If you need to seperate the title section for any reason split it by a period also. Limit the description to 67 words. do not add headings to the sections. use only the sections seperateed by + Here is the prompt: ';
 
         const user_prompt = req.body.search
         const prompt = preprompt+user_prompt
         console.log(prompt)
         
         const response = await openaiClient.chat.completions.create({
-            model: "gpt-4",
+            model: "gpt-4-1106-preview",
             messages:[
                 {"role": "system", "content": "You are a helpful assistant."},
                 {"role": "user", "content": prompt}],
@@ -24,31 +65,33 @@ router.post('/destinations',async (req, res)=> {
         destination = response.choices[0].message.content
         console.log(destination)
        
-        const webLinkRegex = /1: WebLink - \[?(https?:\/\/[^\]\s]+)\]?/;
+        const content_arr = destination.split('+');
 
-
-       
-const titleRegex = /2: Title -\s*([^\n]+)/;
-const keyFeaturesRegex = /3: KeyFeatures -\s*([^\n]+)/;
-const shortDescriptionRegex = /4: Short description -\s*([^\n]+)/;
-
-
-        const webLinkMatch = destination.match(webLinkRegex);
-        const titleMatch = destination.match(titleRegex);
-        const keyFeaturesMatch = destination.match(keyFeaturesRegex);
-        const shortDescriptionMatch = destination.match(shortDescriptionRegex);
 
         // Extract the captured groups if the matches are found
-        const webLink = webLinkMatch ? webLinkMatch[1] : 'Link Not found';
-        const title = titleMatch ? titleMatch[1] : 'Title Not Found';
-        const keyFeatures = keyFeaturesMatch ? keyFeaturesMatch[1] : '';
-        const shortDescription = shortDescriptionMatch ? shortDescriptionMatch[1] : 'Description Not found';
-        console.log(title)
+        const webLink = content_arr[0]
+        const title = content_arr[1]
+        const keyFeatures = content_arr[2]
+        const shortDescription = content_arr[3]
+
+        //Split Key Featurs by period
+        const features = keyFeatures.split('.')
+        var featureString = '';
+        features.forEach(element => {
+            featureString =  featureString + element + ', ';
+        });
+        featureString = "Key Features: "  +featureString
+
+        //get sample image
+        const imageUrl = await getImageUrl(webLink);
+        console.log(imageUrl)
         res.render('results',{destination:destination,
             webLink: webLink,
             title: title,
-            keyFeatures: keyFeatures,
-            shortDescription: shortDescription},)
+            keyFeatures: featureString,
+            shortDescription: shortDescription,
+            imageUrl: imageUrl},
+          )
     }catch(err){
         console.log(err)
     }

@@ -1,4 +1,6 @@
-
+body{
+  background-image: linear-gradient(rgba(0,8,51,0.9),rgba(0,8,51,0.9),url(../images/background1.jpg)) !important;
+}
 p{
    
   margin: 10px 0 !important;
@@ -21,10 +23,40 @@ p{
  
     padding: 15px 0!important;
 }
-  
-}
+
+
 @media screen and (max-width: 600px) {
   .logo-image {
       max-height:70px; /* Smaller size for mobile devices */
   }
+}
+.container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 100vh; 
+  background-image: linear-gradient(rgba(0,8,51,0.9),rgba(0,8,51,0.9),url(../images/background1.jpg)) !important;
+}
+
+.logo-container {
+  margin-bottom: 20px; 
+}
+
+.nav-wrapper {
+  width: 100%; /* Adjust width as per requirement */
+  display: flex;
+  justify-content: center;
+}
+
+.input-field {
+  width: 100%; /* Adjust width as per requirement */
+}
+
+/* Additional styles */
+.brand-logo {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
