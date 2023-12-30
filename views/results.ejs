@@ -1,14 +1,17 @@
-
-
-
+<div class="container">
+    <div class="logo-container">
+        <a href="/" class="brand-logo">
+            <img src="/images/TravelBudLogo.png" class="logo-image" alt="" width="200px">
+        </a>
+    </div>
 <div class="row">
-    <div class="col s12 m7">
+    <div class="col s12 m5">
       <div class="card">
         <div class="card-image">
             <% if(!imageUrl){ %>
-          <img src="/images/default.jpg" width: "50px">
+          <img src="/images/default.jpg" width = "50px">
           <%}else{ %>
-            <img src="<%= imageUrl%>" width: "50px">
+            <img src="<%= imageUrl%>" width= "50px">
             <%}%>
 
           <span class="card-title"><%=title%></span>
@@ -20,12 +23,14 @@
             </p>
         </div>
         <div class="card-action">
-          <a href="<%=webLink %>"><%=webLink %></a>
+            <a  href ="<%=webLink %>"class="waves-effect waves-light btn"><i class="material-icons left"></i>Visit Website</a>
+          
         </div>
       </div>
     </div>
   </div>
 
-  <p>Need something different? Be as specific as you need! We can find it</p>
-
+  <h6>Need something different? Be as specific as you need! We can find it</h6>
+ 
 <%- include('partials/search') %>
+</div>

@@ -1,62 +1,66 @@
-body{
-  background-image: linear-gradient(rgba(0,8,51,0.9),rgba(0,8,51,0.9),url(../images/background1.jpg)) !important;
-}
-p{
-   
-  margin: 10px 0 !important;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.btn-float{
-  float:left !important; 
-  margin-right:10px !important;
+body {
+  background-image: linear-gradient(rgba(0, 8, 51, 0.9), rgba(0, 8, 51, 0.8)), url(../images/background1.jpg);
+  width: 100vw;
+  height: 100vh;
+  background-size: cover;
 }
 
-.fa-small{
-  font-size: 16px !important;
-
-}
-.logo-image {
-  max-height: 120px; /* Adjust this value as per your navbar's height */
-  width: auto; /* This ensures the width adjusts proportionally */
-  vertical-align: middle;
-  
- 
-    padding: 15px 0!important;
-}
-
-
-@media screen and (max-width: 600px) {
-  .logo-image {
-      max-height:70px; /* Smaller size for mobile devices */
-  }
-}
-.container{
+.container {
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  width: 100%;
-  min-height: 100vh; 
-  background-image: linear-gradient(rgba(0,8,51,0.9),rgba(0,8,51,0.9),url(../images/background1.jpg)) !important;
+  align-items: center;
+  min-height: 100vh;
+  width: 100vw;
+
+  
 }
 
-.logo-container {
-  margin-bottom: 20px; 
-}
+ h5,h6{
+   color: aliceblue;
+ }
 
-.nav-wrapper {
-  width: 100%; /* Adjust width as per requirement */
+ .loader{
+  position: fixed;
+  top:0;
+  left:0;
+  width:100vw;
+  height: 100vh;
   display: flex;
   justify-content: center;
-}
+  align-items: center;
+  background-color: wheat;
+  transition: opacity 0.75s,visibility 0.75s;
+  
+ }
 
-.input-field {
-  width: 100%; /* Adjust width as per requirement */
-}
+ .loader-hidden{
+  opacity: 0;
+  visibility: hidden;
+ }
 
-/* Additional styles */
-.brand-logo {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
+ .loader::after{
+  content: "";
+  width:75px;
+  border: 15px solid #dddddd;
+  border-top-color: #7449f5;
+  border-radius: 50%;
+  animation: loading 0.75s ease infinite;
+
+
+ }
+ @keyframes loading{
+  from{
+    transform: rotate(0turn);
+
+  }
+  to{
+    transform: rotate(1turn);
+  }
+ }

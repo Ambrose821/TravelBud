@@ -3,9 +3,9 @@
       <form action ='/ai/destinations' method="POST">
         <div class="input-field">
           <input id="search" name ="search" type="search" placeholder="Tell us about your dream destination and we'll find it for you!" required>
-         
+            
           <label class="label-icon" for="search"><i class="fas fa-search"></i></label>
-          
+          <input type="hidden" value="<%=prev_prompt%>">
         </div>
         <input type="submit" name="submit" id="submit">
        

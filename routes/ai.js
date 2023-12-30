@@ -47,8 +47,17 @@ async function getFullUrl(baseLink, imageUrl){
 /* GET home page. */
 router.post('/destinations',async (req, res)=> {
     try{
-        const preprompt ='Find an Ideal travel destination based on the following criteria. Provide the response in a consistent format with each section seperated by a + with no spaces in the following order without any line breaks: WebLink,Title,KeyFeatures,Short description.For Key Feateurs, seperate by a period. If you need to seperate the title section for any reason split it by a period also. Limit the description to 67 words. do not add headings to the sections. use only the sections seperateed by + Here is the prompt: ';
-
+        var preprompt=""
+        if(req.body.prev_prompt){
+            console.log("+++++++++++++++++++++++++Prev promp:"+ req.body.prev_prompt)
+            prev_prompt = req.body.prev_prompt;
+             preprompt =`Never deviate from the following format.Find an Ideal travel destination based on the following criteria.This is the useres previous prompt in case they reference it: ${prev_prompt}. Provide the response in a consistent format with each section seperated by a + with no spaces in the following order without any line breaks: WebLink,Title,KeyFeatures,Short description.For Key Feateurs, seperate by a period. If you need to seperate the title section for any reason split it by a period also. Limit the description to 67 words. do not add headings to the sections. use only the sections seperateed by + Here is the prompt: `;
+           
+        }
+        else{ console.log("-----------------No Prev Prompt------------------")
+         preprompt ='Never deviate from the following format. Find an Ideal travel destination based on the following criteria. Provide the response in a consistent format with each section seperated by a + with no spaces in the following order without any line breaks: WebLink,Title,KeyFeatures,Short description.For Key Feateurs, seperate by a period. If you need to seperate the title section for any reason split it by a period also. Limit the description to 67 words. do not add headings to the sections. use only the sections seperateed by + Here is the prompt: ';
+           
+        }
         const user_prompt = req.body.search
         const prompt = preprompt+user_prompt
         console.log(prompt)
@@ -90,7 +99,8 @@ router.post('/destinations',async (req, res)=> {
             title: title,
             keyFeatures: featureString,
             shortDescription: shortDescription,
-            imageUrl: imageUrl},
+            imageUrl: imageUrl,
+        prev_prompt:prompt},
           )
     }catch(err){
         console.log(err)
