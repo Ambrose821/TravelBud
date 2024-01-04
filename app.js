@@ -11,9 +11,6 @@ const dotenv = require('dotenv')
 dotenv.config({path: './config/config.env'})
 
 // Use openaiClient for your API calls
-
-
-
 const passport = require('passport')
 const mongoose = require('mongoose')
 const MongoStore = require('connect-mongo')
