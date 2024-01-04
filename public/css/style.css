@@ -64,3 +64,14 @@ body {
     transform: rotate(1turn);
   }
  }
+
+ .menu-btn{
+  top: 15px !important;
+
+  right: auto !important;
+
+  bottom: auto !important;
+  left: 15px !important;
+
+
+ }

@@ -5,21 +5,29 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
         <link rel ="stylesheet" href = "/css/style.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
        
     </head>
     <body>
+        <!-- SideNav Structure -->
+    <ul class="sidenav" id="mobile-demo">
+        <li><a href="https://www.expedia.ca/Flights?locale=en_CA&siteid=4&semcid=CA.MULTILOBF.GOOGLE.GT-c-EN.FLIGHT&semdtl=a114931621089.b1128550498939.g1kwd-32418560.e1c.m1Cj0KCQiAy9msBhD0ARIsANbk0A9ftLKXQ1VdajznD5EMmKfQqKjmLa3w-O3n8_c8nTQrViiySzVT4NoaAt1KEALw_wcB.r1b458a9a9f757343be0ed9e8b9165be7856513ae3d7d9d5017137d1f403a56105.c1aLc84vPFSejIHttFi26HRQ.j19104639.k1.d1552535458380.h1e.i1.l1.n1.o1.p1.q1.s1.t1.x1.f1.u1.v1.w1&gad_source=1&gclid=Cj0KCQiAy9msBhD0ARIsANbk0A9ftLKXQ1VdajznD5EMmKfQqKjmLa3w-O3n8_c8nTQrViiySzVT4NoaAt1KEALw_wcB">Book a flight</a></li>
+        <li><a href="https://www.trivago.ca/en-CA/lm?themeId=280&search=200-92&sem_keyword=trivago&sem_creativeid=598682585985&sem_matchtype=e&sem_network=g&sem_device=c&sem_placement=&sem_target=&sem_adposition=&sem_param1=&sem_param2=&sem_campaignid=12417216152&sem_adgroupid=123951955331&sem_targetid=kwd-5593367084&sem_location=9104639&cipc=br&cip=1071900005&gad_source=1&gclid=Cj0KCQiAy9msBhD0ARIsANbk0A_8JEp9ckH-N9w5913Pv9rh2Y_3t8rhsTlAsSM7CAydxBM485qh8BMaArlNEALw_wcB">Find a hotel</a></li>
         
-        <%- body %>
-        <div class = "loader"></div>
-        <script> window.addEventListener("load",()=>{
-            const loader = document.querySelector(".loader");
-            loader.classList.add("loader-hidden");
+    </ul>
 
-            loader.addEventListener("transitionend",()=>{
-                document.body.removeChild("loader");
-            })
-        })</script>
+    <!-- Trigger Button -->
+    <a href="#" data-target="mobile-demo" class="sidenav-trigger btn-floating  btn-large menu-btn cyan"><i class="fas fa-bars"></i></a>  
+          
+          
+        <%- body %>
+        
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+        <script>  document.addEventListener('DOMContentLoaded', function() {
+            var elems = document.querySelectorAll('.sidenav');
+            var instances = M.Sidenav.init(elems,{});
+        });</script>
+       
     </body>
     
 
